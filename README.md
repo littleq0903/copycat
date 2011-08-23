@@ -5,8 +5,17 @@
 (P.S. This script will only work on Macintosh system now, because the concept of it is using this command to operate clipboard: `pbcopy`.)
 
 
+## Installation
+1. Clone this project into your computer or download it directly.
+`git clone git@github.com:littleq0903/copycat.git`
+2. Move it into `~/bin/`, if it doesn't exist, create it.
+3. Add the following command in your ~/.profile
+`export PATH=$PATH:$HOME/bin`
+4. Restart your terminal, and enjoy.
+
+
 ## Description
-每次都會有這樣的需求我要輸入英文地址，或是輸入一個常常用的domain name，比如說AWS的public dns，我寫了一個工具可以把一些妳常常用的內容存在一個像是hash一樣的表單，只要透過像這樣的command就可以快速複製到clipboard:
+This is a tool for management of your own clipboard under the command-line environment on a Max, you can store some strings as "name=value" pair, and copy it into your clipboard with the name very fast!
 
 
 ## Usage
