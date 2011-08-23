@@ -3,19 +3,20 @@
 
 
 ## Usage
-./copycat -s "home address xxxx" eng-addr
+`./copycat -s "home address xxxx" eng-addr`
 
-./copycat eng-addr
-result: "home address xxx" -> clipboard
+`./copycat eng-addr`
+result:
+"home address xxx" -> clipboard
 
-./copycat --list
+`./copycat --list`
 result:
 list all variables with its name and value
 
-./copycat -d eng-addr
+`./copycat -d eng-addr`
 result:
 deleted the variable which has the name as you gave.
 
-./copycat -D
+`./copycat -D`
 result:
 cleanup the all copy table.
