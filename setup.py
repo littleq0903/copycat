@@ -16,6 +16,8 @@ def build_params():
       'scripts': ['copycat'],
       'install_requires': ['clime', ],
     }
+    if platform.system() == 'Windows':
+        params['scripts'] += ['copycat.bat']
     
     return params
 
