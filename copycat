@@ -1,82 +1,36 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-import os, sys
-from optparse import OptionParser
-import json
+__all__ = ['copycat']
+from CopyCat import CopyCat
+import sys
+import select
 
-STORE_FILE = os.path.expanduser("~/.copycat_store")
-
-if STORE_FILE:
-    try:
-        fp = open(STORE_FILE, "r")
-        content = json.loads(fp.read())
-        fp.close()
-    except IOError:
-        content = {}
-
-else:
-    print >> sys.stderr,"Error: the permission to access the position of STORE_FILE denied. Please specify a position which has permission to write and read."
-    sys.exit(1)
+def has_stdin():
+    return select.select([sys.stdin,],[],[],0.0)[0]
 
 
+def clip_copy(name, value=None):
+    if not value and has_stdin():
+        value = sys.stdin.read()
 
-parser = OptionParser(usage="Usage: %prog [options] name")
-parser.add_option("-s", "--set-value", action="store", type="string", dest="value", help="set the value given to the name.")
-parser.add_option("-d", "--delete-value", action="store", type="string", dest="delname", help="delete the name from the copy table.")
-parser.add_option("-D", "--deletw-all",  action="store_true",  dest="delall", help="delete all variables of the copy table.")
-parser.add_option("-l", "--list", action="store_true", dest="list", help="list all variables in the copy table.")
+    assert value, 'not copy value'
 
-(options, args) = parser.parse_args()
-
-#print "options: %s"%options
-#print "args: %s"%args
+    CopyCat().copy(value, name)
 
 
+def clip_paste(name=None):
+    print CopyCat().paste(name)
 
-# commands doesn't changed the STORE_FILE.
-if options.list:
-    keys =  content.keys()
-    if keys:
-        for name in content.keys():
-            print "%s='%s'"%(name, content[name])
+
+def copycat(value=None, name=None, paste=False):
+    '''
+    option:
+    -p, --paste
+    -n=<str>, --name=<str>
+    '''
+    if paste:
+        return clip_paste(name)
     else:
-        print "There no any data in %s"%STORE_FILE
-    sys.exit(0)
-
-if options.delall:
-    fp = open(STORE_FILE, 'w')
-    content = {}
-    fp.write(json.dumps(content))
-    fp.close()
-    print "All data in %s has been deleted."%STORE_FILE
-    sys.exit(0)
-
-if not args:
-    print >> sys.stderr,  "Please sepcify name you would like to access."
-    parser.print_help()
-    sys.exit(1)
-
-if len(args) > 1:
-    print >> sys.stderr, "There are too many arguments given."
-    sys.exit(1)
+        return clip_copy(name, value)
 
 
-
-
-# commands does change the STORE_FILE.
-if options.value:
-    content[args[0]] = options.value
-    print "%s:'%s' has been saved into %s"%(args[0], options.value, STORE_FILE)
-elif options.delname:
-    del content[options.delname]
-elif args:
-    os.system('echo "%s" | pbcopy'%content[args[0]].encode('utf-8'))
-    print content[args[0]], "=> pbcopy"
-
-
-# save content status to STORE_FILE.
-fp = open(STORE_FILE, 'w')
-fp.write(json.dumps(content))
-fp.close()
-
-
+import clime.now
