@@ -6,7 +6,7 @@ import platform
 def build_params():
     params = {
       'name':'copycat',
-      'version':'0.0.2',
+      'version':'0.0.3',
       'description':'easy way let use clip on command line with system clip',
       'author':'George Li',
       'author_email':'goblin.george@gmail.com',
