@@ -54,7 +54,13 @@ class Storage(object):
         else:
             return self._reg.get(name, None)
 
-    def show(self):
+    def delete(self, name):
+        try:
+            del self._reg[name]
+        except:
+            print 'no reg {}'.format(name)
+
+    def list(self):
         template = "{}:{}"
         for i, v in enumerate(self._stack):
             print template.format(i, v)
@@ -83,3 +89,42 @@ class CopyCat(object):
             storage.save(data, name=name)
             if not name:
                 pyclip.copy(data)
+
+    def delete(self, name):
+        with Storage(self.storage_file) as storage:
+            storage.delete(name)
+
+    def list(self):
+        with Storage(self.storage_file) as storage:
+            storage.list()
+
+
+if __name__ == '__main__':
+    __all__ = ['copycat']
+    import sys
+
+    def has_stdin():
+        return not sys.stdin.isatty()
+
+    def copycat(value=None, name=None, paste=False, list=False, delete=False):
+        '''
+        option:
+        -p, --paste
+        -d, --delete
+        -l, --list
+        -n=<str>, --name=<str>
+        '''
+
+        value = value or has_stdin() and sys.stdin.read()
+        
+        if paste:
+            print CopyCat().paste(name)
+        elif delete:
+            CopyCat().delete(name)
+        else:
+            CopyCat().copy(value, name)
+
+        if list:
+            CopyCat().list()
+
+    import clime.now
