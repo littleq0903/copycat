@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __all__ = ['copy', 'paste', 'list', 'delete']
-import pyclip
+import clipboard
 import os
 import json
 
@@ -83,11 +83,11 @@ class Storage(object):
 def paste(name=None):
     with Storage() as storage:
         if not name:
-            data = pyclip.paste() or storage.get()
+            data = clipboard.paste() or storage.get()
         else:
             data = storage.get(name)
         data = smart_str(data)
-        pyclip.copy(data)
+        clipboard.copy(data)
         return data
     
 def copy(value=None, name=None):
@@ -95,7 +95,7 @@ def copy(value=None, name=None):
     with Storage() as storage:
         storage.save(value, name=name)
         if not name:
-            pyclip.copy(value)
+            clipboard.copy(value)
 
 def delete(name):
     with Storage() as storage:
