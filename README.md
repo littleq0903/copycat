@@ -37,12 +37,12 @@ This is a clipboard tool for command-line heavy users, especially the users who 
 ## Usage
 
 ###command line support 
-1. copy into clipboard `copycat "some thing"`
-2. past from clipboard `copycat --paste` or `copycat -p`
-3. named clipboard `copycat --name=name "some thing"` or `copycat -n name "some thing"` and `copycat --paste --name=name` or `copycat -pn name`
-4. support stdin `echo test|copycat` or `cat file|copycat -n name`..
-5. list `copycat --list` or `copycat -l`
-6. remove `copycat --delete --name name` or `copycat -dn name`
+* `copycat "some thing"` -- copy into clipboard 
+* `copycat --paste` or `copycat -p` -- paste from clipboard 
+* `copycat --name=name "some thing"` or `copycat -n name "some thing"` and `copycat --paste --name=name` or `copycat -pn name` -- copy to named clipboards
+* `echo test|copycat` or `cat file|copycat -n name` -- support pipe from STDIN
+* `copycat --list` or `copycat -l` -- list avaliable clipboards
+* `copycat --delete --name name` or `copycat -dn name` -- remove specified clipboard
 
 ###python method
 
