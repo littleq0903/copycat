@@ -102,10 +102,9 @@ class CopyCat(object):
 if __name__ == '__main__':
     __all__ = ['copycat']
     import sys
-    import select
 
     def has_stdin():
-        return select.select([sys.stdin,],[],[],0.0)[0]
+        return not stdin.isatty()
 
     def copycat(value=None, name=None, paste=False, list=False, delete=False):
         '''
