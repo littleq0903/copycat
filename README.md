@@ -8,15 +8,18 @@
 
 Command-line based clipboard tool for every command-line Ninja
 ```
-## Description
-This is a tool for management of your own clipboard under the command-line environment on a Max, you can store some strings as "name=value" pair, and copy it into your clipboard with the name very fast!
 
+## Description
+This is a clipboard tool for command-line heavy users, especially the users who are using only console mode in daily life. Traditional clipboard stores only 1 value at the same time, copycat doesn't but store as many as you could. (if you remember their name), you could store 1 value into your system clipboard(anonymously) or store many named records.
 
 ## System Requirement.
-* Mac OS X 10.6 or above or Linux or Windows (Maybe not, but I don't know, it is welcome to give me feedbacks if you tested this stuff on your old Mac. :D
-* Python2.5 or above
+* Supported operating systems:
+    * Mac OS X 10.6 or above version
+    * Linux with `xclip` installed
+    * Windows (testing, we're both not familiar with Windwos, if you would add some support to Windows part, we will appreciate that. :)
+* Python 2.5 or above version
 
-(P.S. This script will only work on Macintosh system now, because the concept of it is using this command to operate clipboard: `pbcopy`.)
+(P.S. This script will only work on Macintosh system for now, because the concept of it is using this command to operate clipboard: `pbcopy`.)
 
 
 ## Requirement
@@ -53,3 +56,5 @@ copycat.paste(name='name')
 
 * @littleq0903
 * @georgeli
+
+Contributions are welcome, just send me your pull request and briefly describe what have you done!
