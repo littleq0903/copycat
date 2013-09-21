@@ -1,3 +1,17 @@
+```
+  ____                            _   
+ / ___|___  _ __  _   _  ___ __ _| |_ 
+| |   / _ \| '_ \| | | |/ __/ _` | __|
+| |__| (_) | |_) | |_| | (_| (_| | |_ 
+ \____\___/| .__/ \__, |\___\__,_|\__|
+           |_|    |___/               
+
+Command-line based clipboard tool for every command-line Ninja
+```
+## Description
+This is a tool for management of your own clipboard under the command-line environment on a Max, you can store some strings as "name=value" pair, and copy it into your clipboard with the name very fast!
+
+
 ## System Requirement.
 * Mac OS X 10.6 or above or Linux or Windows (Maybe not, but I don't know, it is welcome to give me feedbacks if you tested this stuff on your old Mac. :D
 * Python2.5 or above
@@ -6,9 +20,8 @@
 
 
 ## Requirement
-1. https://github.com/georgefs/pyclip
-2. https://github.com/moskytw/clime
-
+1. [pyclip](https://github.com/georgefs/pyclip) by @georgefs
+2. [clime](https://github.com/moskytw/clime) by @moskytw
 
 
 ## Installation
@@ -16,10 +29,6 @@
 `git clone https://github.com/georgefs/copycat.git`
 2. `python install setup.py install`
 3. Restart your terminal, and enjoy.
-
-
-## Description
-This is a tool for management of your own clipboard under the command-line environment on a Max, you can store some strings as "name=value" pair, and copy it into your clipboard with the name very fast!
 
 
 ## Usage
@@ -33,8 +42,14 @@ This is a tool for management of your own clipboard under the command-line envir
 6. remove `copycat --delete --name name` or `copycat -dn name`
 
 ###python method
+
 ```python
 import copycat
 copycat.copy(value='value', name='name')
 copycat.paste(name='name')
 ```
+
+## Contributors
+
+* @littleq0903
+* @georgeli
