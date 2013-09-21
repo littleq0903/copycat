@@ -18,7 +18,7 @@ def build_params():
     if platform.system() == 'Windows':
         params['scripts'] = ['copycat.bat']
     else:
-        parans['scripts'] = ['copycat']
+        params['scripts'] = ['copycat']
     
     return params
 
