@@ -16,6 +16,16 @@ def readfile(path):
     except:
         return None
 
+def smart_str(s, encoding='utf-8', errors='strict'):
+    if not isinstance(s, basestring):
+        s = str(s)
+    elif isinstance(s, unicode):
+        return s.encode(encoding, errors)
+    elif s and encoding != 'utf-8':
+        return s.decode('utf-8', errors).encode(encoding, errors)
+    else:
+        return s
+
 SOURCE = readfile(DEFAULT_CONFIG_FILE) or "{}"
 CONFIG = json.loads(SOURCE)
 COPY_STORE = CONFIG.get('COPY_STORE') or DEFAULT_COPYCAT_STORE
@@ -76,10 +86,12 @@ def paste(name=None):
             data = pyclip.paste() or storage.get()
         else:
             data = storage.get(name)
+        data = smart_str(data)
         pyclip.copy(data)
         return data
     
-def copy(name=None, value=None):
+def copy(value=None, name=None):
+    value = smart_str(value)
     with Storage() as storage:
         storage.save(value, name=name)
         if not name:
@@ -113,6 +125,6 @@ if __name__ == '__main__':
         elif list:
             globals()['view']()
         else:
-            globals()['copy'](name, value)
+            globals()['copy'](value, name)
 
     import clime.now
