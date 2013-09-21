@@ -73,7 +73,7 @@ class Storage(object):
             print 'no reg {}'.format(name)
 
     def list(self):
-        template = "{}:{}"
+        template = u"{}:{}"
         for i, v in enumerate(self._stack):
             print template.format(i, v)
         for i, v in self._reg.items():
