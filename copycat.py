@@ -104,7 +104,7 @@ if __name__ == '__main__':
     import sys
 
     def has_stdin():
-        return not stdin.isatty()
+        return not sys.stdin.isatty()
 
     def copycat(value=None, name=None, paste=False, list=False, delete=False):
         '''
