@@ -1,27 +1,29 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+__all__ = ['copy', 'paste', 'list', 'delete']
 import pyclip
 import os
 import json
-import clime
 
 
 DEFAULT_COPYCAT_STORE = os.path.join(os.path.expanduser("~"), '.copycat_store')
-CONFIG_FILE = os.path.join(os.path.expanduser("~"), '.copycat')
-
+DEFAULT_CONFIG_FILE = os.path.join(os.path.expanduser("~"), '.copycat')
 
 def readfile(path):
     try:
         with open(path, 'r') as f:
             return f.read()
     except:
-        return 
+        return None
+
+SOURCE = readfile(DEFAULT_CONFIG_FILE) or "{}"
+CONFIG = json.loads(SOURCE)
+COPY_STORE = CONFIG.get('COPY_STORE') or DEFAULT_COPYCAT_STORE
 
 class Storage(object):
     stack_len = 10
 
-    def __init__(self, path):    
+    def __init__(self, path=COPY_STORE):    
         source = readfile(path) or "{}"
         data = json.loads(source)
         self._reg = data.get('reg', {})
@@ -68,44 +70,33 @@ class Storage(object):
             print template.format(i, v)
 
 
-class CopyCat(object):
+def paste(name=None):
+    with Storage() as storage:
+        if not name:
+            data = pyclip.paste() or storage.get()
+        else:
+            data = storage.get(name)
+        pyclip.copy(data)
+        return data
     
-    def __init__(self):
-        source = readfile(CONFIG_FILE) or "{}"
-        data = json.loads(source)
-        self.storage_file = data.get('COPY_STORE') or DEFAULT_COPYCAT_STORE
-    
-    def paste(self, name=None):
-        with Storage(self.storage_file) as storage:
-            if not name:
-                data = pyclip.paste() or storage.get()
-            else:
-                data = storage.get(name)
-            pyclip.copy(data)
-            return data
-        
-    def copy(self, data, name=None):
-        with Storage(self.storage_file) as storage:
-            storage.save(data, name=name)
-            if not name:
-                pyclip.copy(data)
+def copy(name=None, value=None):
+    with Storage() as storage:
+        storage.save(value, name=name)
+        if not name:
+            pyclip.copy(value)
 
-    def delete(self, name):
-        with Storage(self.storage_file) as storage:
-            storage.delete(name)
+def delete(name):
+    with Storage() as storage:
+        storage.delete(name)
 
-    def list(self):
-        with Storage(self.storage_file) as storage:
-            storage.list()
+def view():
+    with Storage() as storage:
+        storage.list()
 
 
 if __name__ == '__main__':
     __all__ = ['copycat']
     import sys
-
-    def has_stdin():
-        return not sys.stdin.isatty()
-
     def copycat(value=None, name=None, paste=False, list=False, delete=False):
         '''
         option:
@@ -114,17 +105,14 @@ if __name__ == '__main__':
         -l, --list
         -n=<str>, --name=<str>
         '''
-
-        value = value or has_stdin() and sys.stdin.read()
         
         if paste:
-            print CopyCat().paste(name)
+            print globals()['paste'](name)
         elif delete:
-            CopyCat().delete(name)
+            globals()['delete'](name)
+        elif list:
+            globals()['view']()
         else:
-            CopyCat().copy(value, name)
-
-        if list:
-            CopyCat().list()
+            globals()['copy'](name, value)
 
     import clime.now
