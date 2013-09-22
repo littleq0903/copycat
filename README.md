@@ -52,6 +52,14 @@ copycat.copy(value='value', name='name')
 copycat.paste(name='name')
 ```
 
+###command line advance
+```bash
+copycat ls
+cmd=`copycat -p`
+$cmd
+```
+linux like 
+
 ## Contributors
 
 * @littleq0903
