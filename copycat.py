@@ -91,6 +91,8 @@ def paste(name=None):
         return data
     
 def copy(value=None, name=None):
+    value = value or not sys.stdin.isatty() and sys.stdin.read()
+
     value = smart_str(value)
     with Storage() as storage:
         storage.save(value, name=name)
