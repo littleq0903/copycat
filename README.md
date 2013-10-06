@@ -23,7 +23,7 @@ This is a clipboard tool for command-line heavy users, especially the users who 
 
 
 ## Requirement
-1. [pyclip](https://github.com/georgefs/pyclip) by @georgefs
+1. [pyclip-copycat](https://github.com/georgefs/pyclip-copycat) by @georgefs
 2. [clime](https://github.com/moskytw/clime) by @moskytw
 
 
